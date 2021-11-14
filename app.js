@@ -31,12 +31,18 @@ app.use(express.static(path.join(__dirname, 'public')));
 // next lines initialize Passport and authenticate the request based on session
 // data.  If session data contains a logged in user, the user is set at
 // `req.user`.
-app.use(require('express-session')({ secret: 'keyboard cat', resave: false, saveUninitialized: false }));
+app.use(
+  require('express-session')({
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: false,
+  })
+);
 app.use(passport.initialize());
 app.use(passport.session());
 
 app.use('/', indexRouter);
-app.use('/', authRouter);
+app.use('/auth', authRouter);
 app.use('/myaccount', myaccountRouter);
 
 module.exports = app;
